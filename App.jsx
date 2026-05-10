@@ -269,8 +269,42 @@ const Predictions = () => {
 
 const Settings = () => (
   <div>
-    <h1>System Settings</h1>
-    <div className="glass-card" style={{ marginTop: '2rem' }}>
+    <h1 style={{ marginBottom: '2rem' }}>System Settings</h1>
+    
+    <div className="glass-card" style={{ marginBottom: '2rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
+        <BookOpen color="#6366f1" />
+        <h2>คู่มือการใช้งาน (User Guide)</h2>
+      </div>
+      
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+        <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '16px' }}>
+          <h4 style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>1. การดู Dashboard</h4>
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            ใช้สำหรับดูผลรางวัลล่าสุด และสถิติสรุปภาพรวมจากฐานข้อมูลทั้งหมด 400 กว่างวด เพื่อให้เห็นภาพรวมของเลขที่เพิ่งออกไป
+          </p>
+        </div>
+        
+        <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '16px' }}>
+          <h4 style={{ color: 'var(--accent-secondary)', marginBottom: '0.5rem' }}>2. การใช้ Heatmap</h4>
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <b>สีเข้ม:</b> คือเลขที่ "เดินดี" ออกบ่อยมากในรอบ 20 ปี<br/>
+            <b>สีอ่อน:</b> คือเลขที่ออกน้อย หรือเลข "อั้น" สถิติ<br/>
+            ใช้สำหรับหาเลขเด่น (Hot) หรือเลขดับ (Cold) เพื่อวางแผน
+          </p>
+        </div>
+        
+        <div style={{ padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '16px' }}>
+          <h4 style={{ color: '#10b981', marginBottom: '0.5rem' }}>3. วิเคราะห์ AI Predictions</h4>
+          <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+            <b>Moving Average:</b> ดูแนวโน้มค่ากลางจากงวดล่าสุด<br/>
+            <b>Alpha Engine:</b> ระบบที่ฉลาดที่สุด ใช้การสุ่มจำลองเหตุการณ์ 10,000 ครั้ง เพื่อหาน้ำหนักความเป็นไปได้ที่สูงที่สุด
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div className="glass-card">
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
         <ShieldCheck color="#10b981" />
         <h3>System Integrity</h3>
