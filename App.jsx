@@ -6,6 +6,7 @@ const Sidebar = () => {
   const location = useLocation();
   const items = [
     { icon: <Home size={20} />, label: 'Dashboard', path: '/' },
+    { icon: <BarChart3 size={20} />, label: 'Heatmap', path: '/heatmap' },
     { icon: <TrendingUp size={20} />, label: 'AI Predictions', path: '/predictions' },
     { icon: <SettingsIcon size={20} />, label: 'Settings', path: '/settings' },
   ];
@@ -67,9 +68,14 @@ const Dashboard = () => {
             <h2 style={{ marginBottom: '0.5rem' }}>Big Data Statistical Processing</h2>
             <p style={{ color: 'var(--text-secondary)' }}>Our AI has analyzed massive datasets to identify the highest probability trends.</p>
           </div>
-          <Link to="/predictions" className="glass-card" style={{ padding: '0.75rem 1.5rem', background: 'var(--accent-primary)', color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
-            View Predictions <ChevronRight size={18} />
-          </Link>
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <Link to="/heatmap" className="glass-card" style={{ padding: '0.75rem 1.5rem', background: 'rgba(255,255,255,0.05)', color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+              Heatmap <ChevronRight size={18} />
+            </Link>
+            <Link to="/predictions" className="glass-card" style={{ padding: '0.75rem 1.5rem', background: 'var(--accent-primary)', color: 'white', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+              Predictions <ChevronRight size={18} />
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -133,6 +139,26 @@ const Heatmap = ({ data, color, title }) => {
   );
 };
 
+const HeatmapPage = () => {
+  const [s, setS] = useState(null);
+  useEffect(() => {
+    fetch('/api/stats').then(r => r.json()).then(x => setS(x));
+  }, []);
+
+  return (
+    <div>
+      <div style={{ marginBottom: '2rem' }}>
+        <h1 style={{ fontSize: '2.5rem' }}>Statistical <span className="gradient-text">Heatmap</span></h1>
+        <p style={{ color: 'var(--text-secondary)' }}>Density analysis of {s?.total_draws || 0} draws ({s?.total_years || 0} years)</p>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))', gap: '1.5rem' }}>
+        {s?.top2?.heatmap && <Heatmap title="Top 2 Digits Frequency" data={s.top2.heatmap} color="#6366f1" />}
+        {s?.bottom2?.heatmap && <Heatmap title="Bottom 2 Digits Frequency" data={s.bottom2.heatmap} color="#10b981" />}
+      </div>
+    </div>
+  );
+};
+
 const Predictions = () => {
   const [d, setD] = useState(null);
   const [a, setA] = useState(null);
@@ -177,11 +203,6 @@ const Predictions = () => {
             <div><p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem' }}>Bottom</p><h2 style={{ fontSize: '2rem' }}>{d?.prob?.bottom2?.num || '--'}</h2></div>
           </div>
         </div>
-      </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-        {s?.top2?.heatmap && <Heatmap title="Top 2 Digits — Heatmap" data={s.top2.heatmap} color="#6366f1" />}
-        {s?.bottom2?.heatmap && <Heatmap title="Bottom 2 Digits — Heatmap" data={s.bottom2.heatmap} color="#10b981" />}
       </div>
 
       <div className="glass-card" style={{ marginBottom: '2rem', border: '1px solid rgba(168, 85, 247, 0.3)' }}>
@@ -268,6 +289,7 @@ export default function App() {
         <main className="main-content">
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/heatmap" element={<HeatmapPage />} />
             <Route path="/predictions" element={<Predictions />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
