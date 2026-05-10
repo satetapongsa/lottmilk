@@ -12,10 +12,10 @@ const Sidebar = () => {
   ];
   return (
     <aside className="sidebar">
-      <div style={{ marginBottom: '2.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+      <Link to="/" style={{ textDecoration: 'none', color: 'inherit', marginBottom: '2.5rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
         <Activity className="gradient-text" size={32} />
         <h2 style={{ fontSize: '1.5rem', fontWeight: 800 }}>Lotto<span className="gradient-text">Pro</span></h2>
-      </div>
+      </Link>
       <nav>
         {items.map((item, i) => (
           <Link key={i} to={item.path} className={`nav-item ${location.pathname === item.path ? 'active' : ''}`} style={{ textDecoration: 'none' }}>
