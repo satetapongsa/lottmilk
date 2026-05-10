@@ -1,8 +1,5 @@
-streamlit
-pandas
-plotly
-numpy
-scikit-learn
 fastapi
 uvicorn
-fastapi-cors
+pandas
+numpy
+python-multipart
